@@ -1057,7 +1057,7 @@ const App: React.FC = () => {
         </div>
         
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center border-t border-gray-300 dark:border-white/5 pt-10">
-          <p className="text-xs text-gray-600 font-mono">© 2024 OPERATOR SYSTEMS. ALL RIGHTS RESERVED.</p>
+          <p className="text-xs text-gray-600 font-mono">© 2025 OPERATOR SYSTEMS. ALL RIGHTS RESERVED.</p>
           <div className="flex gap-8 mt-6 md:mt-0">
             <a href="#" className="text-gray-600 hover:text-black dark:hover:text-white transition-colors text-xs font-mono uppercase tracking-wider">Twitter</a>
             <a href="#" className="text-gray-600 hover:text-black dark:hover:text-white transition-colors text-xs font-mono uppercase tracking-wider">LinkedIn</a>
