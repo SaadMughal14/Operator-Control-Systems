@@ -210,13 +210,13 @@ const MockTerminal = () => (
        <div className="w-2 h-2 rounded-full bg-green-500/50"></div>
     </div>
     <div className="mt-6 space-y-1 opacity-90">
-      <div className="animate-[fadeIn_0.5s_ease-in-out_forwards] opacity-0" style={{ animationDelay: '0s' }}><span className="text-blue-400">>> BOT_INIT</span> <span className="text-gray-500">SESSION: #882</span></div>
-      <div className="animate-[fadeIn_0.5s_ease-in-out_forwards] opacity-0" style={{ animationDelay: '0.8s' }}><span className="text-white">>> INCOMING_QUERY</span> <span className="text-yellow-500">"Where is my order?"</span></div>
-      <div className="animate-[fadeIn_0.5s_ease-in-out_forwards] opacity-0" style={{ animationDelay: '1.6s' }}><span className="text-blue-400">>> CHECKING_SHOPIFY...</span> <span>[====  ]</span></div>
+      <div className="animate-[fadeIn_0.5s_ease-in-out_forwards] opacity-0" style={{ animationDelay: '0s' }}><span className="text-blue-400">&gt;&gt; BOT_INIT</span> <span className="text-gray-500">SESSION: #882</span></div>
+      <div className="animate-[fadeIn_0.5s_ease-in-out_forwards] opacity-0" style={{ animationDelay: '0.8s' }}><span className="text-white">&gt;&gt; INCOMING_QUERY</span> <span className="text-yellow-500">"Where is my order?"</span></div>
+      <div className="animate-[fadeIn_0.5s_ease-in-out_forwards] opacity-0" style={{ animationDelay: '1.6s' }}><span className="text-blue-400">&gt;&gt; CHECKING_SHOPIFY...</span> <span>[====  ]</span></div>
       <div className="text-gray-700 my-2 animate-[fadeIn_0.5s_ease-in-out_forwards] opacity-0" style={{ animationDelay: '2.0s' }}>----------------------------------------</div>
-      <div className="animate-[fadeIn_0.5s_ease-in-out_forwards] opacity-0" style={{ animationDelay: '2.5s' }}><span className="text-accent">>> STATUS_FOUND</span> <span className="text-accent">SHIPPED</span></div>
-      <div className="animate-[fadeIn_0.5s_ease-in-out_forwards] opacity-0" style={{ animationDelay: '3.2s' }}><span className="text-green-500">>> REPLY_SENT</span> <span className="text-green-500">RESOLVED</span></div>
-      <div className="text-gray-500 animate-[fadeIn_0.5s_ease-in-out_forwards] opacity-0" style={{ animationDelay: '4.0s' }}>>> WAITING_FOR_NEXT_TICKET...</div>
+      <div className="animate-[fadeIn_0.5s_ease-in-out_forwards] opacity-0" style={{ animationDelay: '2.5s' }}><span className="text-accent">&gt;&gt; STATUS_FOUND</span> <span className="text-accent">SHIPPED</span></div>
+      <div className="animate-[fadeIn_0.5s_ease-in-out_forwards] opacity-0" style={{ animationDelay: '3.2s' }}><span className="text-green-500">&gt;&gt; REPLY_SENT</span> <span className="text-green-500">RESOLVED</span></div>
+      <div className="text-gray-500 animate-[fadeIn_0.5s_ease-in-out_forwards] opacity-0" style={{ animationDelay: '4.0s' }}>&gt;&gt; WAITING_FOR_NEXT_TICKET...</div>
     </div>
     <div className="absolute inset-0 bg-gradient-to-b from-transparent via-green-500/5 to-transparent animate-[pulse_3s_linear_infinite] pointer-events-none"></div>
     <style>{`
