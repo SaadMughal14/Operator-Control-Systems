@@ -12,72 +12,52 @@ const apiKey = getApiKey();
 const ai = new GoogleGenAI({ apiKey });
 
 /**
- * SMART SIMULATION ENGINE
- * This runs if:
- * 1. No API key is provided.
- * 2. The API key is invalid (403 error).
- * 3. Quota is exceeded.
+ * ENHANCED SIMULATION ENGINE (Fallback)
  * 
- * It generates a context-aware proposal based on the user's input keywords.
+ * This runs if the API Key is missing. 
+ * It now dynamically constructs responses based on user input 
+ * to make the "fake" response feel tailored and specific.
  */
 const runSimulation = (clientName: string, industry: string, painPoints: string) => {
   const text = `${industry} ${painPoints}`.toLowerCase();
   
-  // Default Template
-  let result = {
-    title: "Operational Efficiency Protocol",
-    strategy: `We will deploy a central orchestration agent to monitor your ${industry} workflows, identifying bottlenecks and automating manual data entry tasks to reclaim lost hours.`,
-    estimatedSavings: "20-30 hours/week",
-    recommendedTech: ["Make.com", "Airtable", "Slack"]
+  // Dynamic Strategy Generators
+  const getStrategy = (type: string) => {
+    switch (type) {
+      case 'lead_gen':
+        return `Deployment of an autonomous prospecting node for ${clientName}. We will configure a waterfall enrichment workflow that identifies high-value ${industry} targets, verifies contact data, and initiates hyper-personalized outreach sequences to solve "${painPoints.substring(0, 30)}..." without human input.`;
+      case 'support':
+        return `Integration of a Level-1 Neural Support Agent tailored for ${industry} protocols. This system will ingest your knowledge base to resolve inquiries related to "${painPoints.substring(0, 20)}..." instantly, reducing ticket volume by 80% while syncing context to your CRM.`;
+      case 'data':
+        return `Construction of a Data Ingestion Pipeline. We will map unstructured inputs from your current workflow regarding "${painPoints.substring(0, 20)}..." and route them through an OCR/Vision model, structuring the output directly into your database with 99.9% accuracy.`;
+      case 'logistics':
+        return `Implementation of a Real-Time Logistics Command Center for ${clientName}. By connecting inventory APIs with predictive logic, we will automate the decision-making process for "${painPoints.substring(0, 25)}...", ensuring zero downtime and optimized routing.`;
+      default:
+        return `Deployment of a Central Orchestration Agent for ${clientName}. We will identify the friction points in your ${industry} workflow—specifically regarding "${painPoints.substring(0, 30)}..."—and replace manual intervention with deterministic logic scripts.`;
+    }
   };
 
-  // 1. LEAD GEN / OUTREACH SCENARIO
-  if (text.includes("lead") || text.includes("sale") || text.includes("client") || text.includes("outreach") || text.includes("email")) {
-    result = {
-      title: "Automated Outreach Engine",
-      strategy: "We will build a self-driving prospecting system that scrapes leads, verifies emails, and sends personalized sequences without human intervention, syncing valid responses directly to your CRM.",
-      estimatedSavings: "+45% Lead Volume",
-      recommendedTech: ["Clay", "Instantly.ai", "OpenAI", "HubSpot"]
-    };
-  }
-  // 2. CUSTOMER SUPPORT / CHAT SCENARIO
-  else if (text.includes("support") || text.includes("chat") || text.includes("answer") || text.includes("customer") || text.includes("call")) {
-    result = {
-      title: "Level-1 Support Agent",
-      strategy: "We will implement a fine-tuned AI support representative capable of resolving 80% of incoming tickets instantly, processing refunds, and tracking orders 24/7.",
-      estimatedSavings: "-70% Response Time",
-      recommendedTech: ["Vapi.ai", "Intercom", "Gemini 1.5 Pro", "Zendesk"]
-    };
-  }
-  // 3. DATA / INVOICE / ADMIN SCENARIO
-  else if (text.includes("data") || text.includes("entry") || text.includes("invoice") || text.includes("pdf") || text.includes("excel") || text.includes("admin")) {
-    result = {
-      title: "Document Ingestion Pipeline",
-      strategy: "We will deploy an OCR-enabled extraction bot that monitors your inbox, reads PDF attachments, and syncs line-item data directly into your accounting software with 99% accuracy.",
-      estimatedSavings: "$45,000 / year in labor",
-      recommendedTech: ["Python", "AWS Textract", "QuickBooks API", "PostgreSQL"]
-    };
-  }
-  // 4. INVENTORY / LOGISTICS SCENARIO
-  else if (text.includes("stock") || text.includes("inventory") || text.includes("ship") || text.includes("logistics") || text.includes("route")) {
-    result = {
-      title: "Inventory Command Center",
-      strategy: "We will connect your sales channels to a central inventory database, creating a real-time sync that prevents overselling and automatically reorders stock when low thresholds are reached.",
-      estimatedSavings: "Eliminate Stockouts",
-      recommendedTech: ["Shopify API", "Airtable", "Twilio", "Google Cloud"]
-    };
-  }
-  // 5. SOCIAL MEDIA / CONTENT
-  else if (text.includes("content") || text.includes("social") || text.includes("post") || text.includes("marketing") || text.includes("video")) {
-    result = {
-      title: "Viral Content Multiplier",
-      strategy: "We will configure a content engine that takes a single long-form video and automatically chops, captions, and distributes it to TikTok, Reels, and Shorts simultaneously.",
-      estimatedSavings: "10x Content Output",
-      recommendedTech: ["Opus Clip API", "Zapier", "Notion", "YouTube API"]
-    };
-  }
+  // Logic to select the best template based on keywords
+  let category = 'general';
+  if (text.includes("lead") || text.includes("sale") || text.includes("client") || text.includes("email") || text.includes("growth")) category = 'lead_gen';
+  else if (text.includes("support") || text.includes("chat") || text.includes("answer") || text.includes("customer") || text.includes("ticket")) category = 'support';
+  else if (text.includes("data") || text.includes("entry") || text.includes("invoice") || text.includes("admin") || text.includes("excel")) category = 'data';
+  else if (text.includes("stock") || text.includes("ship") || text.includes("inventory") || text.includes("logistics")) category = 'logistics';
 
-  return result;
+  // Return the dynamic object
+  return {
+    title: category === 'general' ? "Operational Efficiency Protocol" : 
+           category === 'lead_gen' ? "Autonomous Revenue Engine" :
+           category === 'support' ? "Neural Support Interface" :
+           category === 'data' ? "Intelligent Data Fabric" : "Logistics Command Node",
+    strategy: getStrategy(category),
+    estimatedSavings: category === 'lead_gen' ? "+300% Pipeline Velocity" : 
+                      category === 'support' ? "-85% Response Time" : 
+                      "Save 25+ Hours/Week",
+    recommendedTech: category === 'lead_gen' ? ["Clay", "SmartLead", "OpenAI"] :
+                     category === 'data' ? ["Python", "AWS Textract", "PostgreSQL"] :
+                     ["Make.com", "Airtable", "Gemini 1.5 Pro"]
+  };
 };
 
 // Simulates a backend "Sales Engineer" analyzing a lead
@@ -87,35 +67,43 @@ export const generateProposal = async (
   painPoints: string
 ): Promise<{ title: string; strategy: string; estimatedSavings: string; recommendedTech: string[] }> => {
   
-  // If explicitly no key, skip straight to simulation
+  // If explicitly no key, skip straight to ENHANCED simulation
   if (!apiKey) {
     return runSimulation(clientName, industry, painPoints);
   }
 
   try {
+    // ELITE PROMPT ENGINEERING
     const prompt = `
-      Act as a senior technical consultant for a premium automation agency called "Operator".
-      A potential client has submitted a request.
-      Client Name: ${clientName}
-      Industry: ${industry}
-      Problem: ${painPoints}
+      You are "OPERATOR", an elite, high-end automation consultancy system.
+      A prospective client has submitted a request. Analyze it and generate a preliminary technical architecture.
 
-      Generate a realistic, professional preliminary project proposal in JSON format.
-      Do NOT use sci-fi jargon or fake buzzwords. Use real industry terms.
-      The tone should be authoritative, stable, and efficiency-focused (The "Operator" brand persona).
-      
-      Output JSON with these keys:
-      - title: A professional solution name (e.g. "Invoice Processing Automation", "Customer Support Triage System").
-      - strategy: 2 clear sentences on how we will solve their problem using automation and specific software (no fluff).
-      - estimatedSavings: A specific metric (e.g. "40% reduction in processing time", "Save $50k/year in labor").
-      - recommendedTech: An array of 3-4 real technologies (e.g. "Python", "React", "OpenAI API", "AWS Lambda", "Pinecone").
+      CLIENT IDENTITY: "${clientName}"
+      INDUSTRY SECTOR: "${industry}"
+      OPERATIONAL BOTTLENECK: "${painPoints}"
+
+      Directives:
+      1. IGNORE generic advice. Do not say "We can help". 
+      2. PROPOSE A SPECIFIC SYSTEM. Name the system based on the problem (e.g., "Invoice Triage Node", "Dynamic Pricing Engine").
+      3. BE CLINICAL. Use technical, authoritative language. You are an architect, not a salesperson.
+      4. STRATEGY: Describe exactly *what* the automation does in 2 sentences. Use terms like "ingest", "parse", "route", "webhook", "API", "neural", "sync".
+      5. TECH STACK: List 3-4 specific tools that would solve this (e.g. "Pinecone", "Vapi.ai", "Make", "Stripe API").
+
+      Return ONLY raw JSON with this schema:
+      {
+        "title": "Name of the Custom System",
+        "strategy": "The technical explanation of the solution.",
+        "estimatedSavings": "A specific quantified metric (e.g. '40 hours/month' or '$50k/year')",
+        "recommendedTech": ["Tool 1", "Tool 2", "Tool 3"]
+      }
     `;
 
     const response: GenerateContentResponse = await ai.models.generateContent({
       model: 'gemini-2.5-flash',
       contents: prompt,
       config: {
-        responseMimeType: "application/json"
+        responseMimeType: "application/json",
+        temperature: 0.7 // Lower temperature for more deterministic, professional results
       }
     });
 
@@ -123,24 +111,20 @@ export const generateProposal = async (
     return JSON.parse(text);
 
   } catch (error) {
-    // CRITICAL FIX: If the API fails (403, 500, etc.), fall back to the SMART SIMULATION
-    // instead of a generic error. This ensures the user experience remains premium.
-    console.warn("Operator AI Connection failed (likely invalid Key). Engaging Simulation Protocol.", error);
+    console.warn("Operator AI Connection failed. Engaging Enhanced Simulation Protocol.", error);
     return runSimulation(clientName, industry, painPoints);
   }
 };
 
 export const generateAgentResponse = async (prompt: string, context: string): Promise<string> => {
-    // Keep existing function for potential demo usage
-    if (!apiKey) return "Secure connection required. Please configure API credentials.";
+    if (!apiKey) return "ENCRYPTION_KEY_MISSING. ACCESS_DENIED. Please configure environment variables.";
     try {
         const response = await ai.models.generateContent({
             model: 'gemini-2.5-flash',
-            contents: prompt,
-            config: { systemInstruction: context }
+            contents: `Role: ${context}. User Input: "${prompt}". Respond in character. Keep it under 2 sentences. Computer terminal style.`,
         });
         return response.text || "";
     } catch(e) { 
-      return "Connection interrupted. Operator systems offline."; 
+      return "CONNECTION_LOST // RECONNECTING..."; 
     }
 };
