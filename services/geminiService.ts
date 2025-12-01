@@ -2,11 +2,10 @@ import { GoogleGenAI, GenerateContentResponse } from "@google/genai";
 
 // Safely access process.env to avoid browser runtime errors
 const getApiKey = () => {
-  try {
+  if (typeof process !== 'undefined' && process.env) {
     return process.env.API_KEY || '';
-  } catch (e) {
-    return '';
   }
+  return '';
 };
 
 const apiKey = getApiKey();
