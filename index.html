@@ -11,7 +11,10 @@
     <script>
       // Critical Polyfill: Defines process.env globally before any modules load
       // This prevents "process is not defined" errors during app initialization
+      
+      // <!-- PASTE YOUR API KEY BELOW INSIDE THE QUOTES -->
       window.process = window.process || { env: { API_KEY: '' } };
+      // Example: window.process = window.process || { env: { API_KEY: 'AIzaSy...' } };
     </script>
     <script>
       tailwind.config = {
